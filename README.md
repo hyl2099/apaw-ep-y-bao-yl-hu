@@ -3,9 +3,9 @@
 > Este proyecto es un apoyo docente de la asignatura. Se quiere mostrar un ejemplo completo de un API-Rest para comprender la arquitectura y su proceso evolutivo
 
 ### Estado del código
-[![Build Status](https://travis-ci.org/miw-upm/apaw-ep-themes.svg?branch=develop)](https://travis-ci.org/miw-upm/apaw-ep-themes)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-themes&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-themes)
-[![BCH compliance](https://bettercodehub.com/edge/badge/miw-upm/apaw-ep-themes?branch=develop)](https://bettercodehub.com/)
+[![Build Status](https://travis-ci.org/Buyen3/apaw-ep-y-bao-yl-hu.svg?branch=develop)](https://travis-ci.org/Buyen3/apaw-ep-y-bao-yl-hu)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-y-bao-yl-hu&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-y-bao-yl-hu)
+[![BCH compliance](https://bettercodehub.com/edge/badge/Buyen3/apaw-ep-y-bao-yl-hu?branch=develop)](https://bettercodehub.com/)
 [![Heroku broken](https://apaw-ep-themes.herokuapp.com/system/version-badge)](https://apaw-ep-themes.herokuapp.com/swagger-ui.html)
 
 ### Tecnologías necesarias
