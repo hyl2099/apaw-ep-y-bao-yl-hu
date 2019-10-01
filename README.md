@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/Buyen3/apaw-ep-y-bao-yl-hu.svg?branch=develop)](https://travis-ci.org/Buyen3/apaw-ep-y-bao-yl-hu)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-y-bao-yl-hu&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-y-bao-yl-hu)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Buyen3/apaw-ep-y-bao-yl-hu?branch=develop)](https://bettercodehub.com/)
-[![Heroku broken](https://apaw-ep-themes.herokuapp.com/system/version-badge)](https://apaw-ep-themes.herokuapp.com/swagger-ui.html)
+[![Heroku broken](https://apaw-ep-y-bao-yl-hu.herokuapp.com/system/version-badge)](https://apaw-ep-y-bao-yl-hu.herokuapp.com/swagger-ui.html)
 
 ### Tecnologías necesarias
 * Java
