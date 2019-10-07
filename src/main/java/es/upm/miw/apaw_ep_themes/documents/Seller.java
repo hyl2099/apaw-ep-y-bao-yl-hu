@@ -1,4 +1,4 @@
-package apaw.documents;
+package es.upm.miw.apaw_ep_themes.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
