@@ -1,6 +1,8 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
+import es.upm.miw.apaw_ep_themes.daos.SellerDao;
+import es.upm.miw.apaw_ep_themes.documents.Seller;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +17,38 @@ class SellerResourceIT {
 
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private SellerDao sellerDao;
 
     @Test
     void testCreate() {
+        SellerDto dto = new SellerDto(null,"123",1);
         SellerDto sellerDto = this.webTestClient
-                .post().uri(SellerResource.SELLEERS)
-                .body(BodyInserters.fromObject(new SellerDto(null, null)))
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(dto))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(SellerDto.class).returnResult().getResponseBody();
-        assertNull(sellerDto);
-        assertNull(sellerDto.getName());
-        assertEquals(null, sellerDto.getCredit());
+        assertNotNull(sellerDto.getId());
+        assertNotNull(sellerDto.getName());
+        assertNotNull(sellerDto.getCredit());
+
+    }
+
+    @Test
+    public void insert01(){
+        SellerDto sellerDto = new SellerDto("123", 1);
+        Seller seller = new Seller(sellerDto.getName(), sellerDto.getCredit());
+        sellerDao.save(seller);
+        System.out.println("save success!");
+
     }
 
     @Test
     void testCreateSellerException() {
         SellerDto sellerDto = new SellerDto(null, null);
         this.webTestClient
-                .post().uri(SellerResource.SELLEERS)
+                .post().uri(SellerResource.SELLERS)
                 .body(BodyInserters.fromObject(sellerDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);

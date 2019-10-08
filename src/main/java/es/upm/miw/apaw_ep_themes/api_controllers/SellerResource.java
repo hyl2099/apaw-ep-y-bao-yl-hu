@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(SellerResource.SELLEERS)
+@RequestMapping(SellerResource.SELLERS)
 public class SellerResource {
 
-        static final String SELLEERS = "/sellers";
+    static final String SELLERS = "/sellers";
 
     private SellerBusinessController sellerBusinessController;
 

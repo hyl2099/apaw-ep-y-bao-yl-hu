@@ -15,6 +15,12 @@ public class SellerDto {
         // empty for framework
     }
 
+    public SellerDto(String id, String name, Integer credit) {
+        this.id = id;
+        this.name = name;
+        this.credit = credit;
+    }
+
     public SellerDto(String name, Integer credit) {
         this.name = name;
         this.credit = credit;
