@@ -9,7 +9,7 @@ public class House {
     double area;
     Boolean isNew;
 
-    public void house( String id,double price,LocalDateTime dealDate,double area,,Boolean isNew){
+    public void house( String id,double price,LocalDateTime dealDate,double area,Boolean isNew){
         this.id = id;
         this.price = price;
         this.dealDate = dealDate;
@@ -33,7 +33,7 @@ public class House {
         return area;
     }
 
-    public Boolean getNew() {
+    public Boolean getISNew() {
         return isNew;
     }
 
