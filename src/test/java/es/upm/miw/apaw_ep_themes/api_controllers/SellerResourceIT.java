@@ -42,6 +42,7 @@ class SellerResourceIT {
         SellerDto sellerDto = new SellerDto("123", 1);
         Seller seller = new Seller(sellerDto.getName(), sellerDto.getCredit());
         sellerDao.save(seller);
+        assertNotNull(sellerDao.save(seller));
         System.out.println("save success!");
 
     }

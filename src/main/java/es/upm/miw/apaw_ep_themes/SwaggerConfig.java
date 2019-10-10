@@ -19,11 +19,12 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiInfo());
     }
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Swagger构建Restful API文档")
-                .description("文档除了查看API还可以进行调试")
+        return new ApiInfoBuilder().title("MIW")
+                .description("APAW.Java-Spring-MongoDB.")
                 .version("1.0.0")
                 .build();
 
