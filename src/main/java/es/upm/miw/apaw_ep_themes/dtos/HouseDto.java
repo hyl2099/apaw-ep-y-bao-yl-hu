@@ -9,9 +9,6 @@ public class HouseDto {
 
     private String id;
     private double price;
-
-
-
     private LocalDateTime dealDate;
     private double area;
     private Boolean isNew;
@@ -21,20 +18,25 @@ public class HouseDto {
         // empty for framework
     }
 
-    public HouseDto(String id,double price,LocalDateTime dealDate,double area,Boolean isNew) {
-        this.id = id;
+//    public HouseDto(double price,LocalDateTime dealDate,double area,Boolean isNew) {
+//        this.price = price;
+//        this.dealDate = dealDate;
+//        this.area = area;
+//        this.isNew = isNew;
+//    }
+
+    public HouseDto(House house) {
+        this.price = house.getPrice();
+        this.dealDate = house.getDealDate();
+        this.area = house.getArea();
+        this.isNew = house.getISNew();
+    }
+
+    public HouseDto(double price, LocalDateTime dealDate, double area, boolean isNew) {
         this.price = price;
         this.dealDate = dealDate;
         this.area = area;
         this.isNew = isNew;
-    }
-
-    public HouseDto(House house) {
-        this.id = house.getId();
-        this.price = house.getPrice();
-        this.dealDate = house.getDealDate();
-        this.area = house.getArea();
-        this.isNew = house.getIsNew();
     }
 
     public String getId() {
@@ -73,8 +75,8 @@ public class HouseDto {
         return isNew;
     }
 
-    public void setIsNew(Boolean aNew) {
-        isNew = aNew;
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
     }
 
     public void validate() {

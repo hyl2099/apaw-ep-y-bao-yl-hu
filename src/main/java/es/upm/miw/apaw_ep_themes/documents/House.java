@@ -9,8 +9,7 @@ public class House {
     double area;
     Boolean isNew;
 
-    public void house( String id,double price,LocalDateTime dealDate,double area,Boolean isNew){
-        this.id = id;
+    public House(double price, LocalDateTime dealDate, double area, Boolean isNew) {
         this.price = price;
         this.dealDate = dealDate;
         this.area = area;

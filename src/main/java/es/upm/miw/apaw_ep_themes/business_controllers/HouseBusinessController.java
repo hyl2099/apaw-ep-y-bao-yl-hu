@@ -6,6 +6,7 @@ import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,11 @@ public class HouseBusinessController {
     }
 
     public HouseDto create(HouseDto houseDto) {
-        House house = new House(house.getPrice(), house.getDealDate(),house.getArea(),house.getIsNew());
+        double price = houseDto.getPrice();
+        LocalDateTime dealDate = houseDto.getDealDate();
+        double area = houseDto.getArea();
+        Boolean isNew = houseDto.getIsNew();
+        House house = new House(price,dealDate,area,isNew);
         this.houseDao.save(house);
         return new HouseDto(house);
     }

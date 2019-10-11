@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(HouseBusinessController.HOUSES)
+@RequestMapping(HouseResource.HOUSES)
 public class HouseResource {
-    static final String HOUSE = "/houses";
+    static final String HOUSES = "/houses";
 
     private HouseBusinessController houseBusinessController;
 
