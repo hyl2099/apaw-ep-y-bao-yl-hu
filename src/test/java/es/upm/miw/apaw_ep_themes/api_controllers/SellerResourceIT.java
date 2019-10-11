@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ApiTestConfig
@@ -40,6 +42,7 @@ class SellerResourceIT {
         SellerDto sellerDto = new SellerDto("123", 1);
         Seller seller = new Seller(sellerDto.getName(), sellerDto.getCredit());
         sellerDao.save(seller);
+        assertNotNull(sellerDao.save(seller));
         System.out.println("save success!");
 
     }
@@ -53,5 +56,24 @@ class SellerResourceIT {
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
-
+    @Test
+    void ReadAll() {
+        SellerDto suggestionDto = new  SellerDto("baoying", 2);
+        this.webTestClient
+                .post().uri( SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(suggestionDto))
+                .exchange()
+                .expectStatus().isOk();
+        List< SellerDto> list =
+                this.webTestClient
+                        .get().uri( SellerResource.SELLERS)
+                        .exchange()
+                        .expectStatus().isOk()
+                        .expectBodyList( SellerDto.class)
+                        .returnResult().getResponseBody();
+        assertTrue(list.size() > 0);
+        assertNotNull(list.get(0).getId());
+        assertNotNull(list.get(0).getName());
+        assertNotNull(list.get(0).getCredit());
+    }
 }

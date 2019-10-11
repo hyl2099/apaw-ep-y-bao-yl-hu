@@ -25,12 +25,4 @@ public class BadgeTest {
         assertNotNull(badge);
         assertEquals("<svg", badge.substring(0, 4));
     }
-
-    @Test
-    public  void testCreate() {
-        Seller seller = new Seller("123", 1);
-        seller = sellerDao.save(seller);
-        System.out.println(seller);
-    }
-
 }
