@@ -18,13 +18,6 @@ public class HouseDto {
         // empty for framework
     }
 
-//    public HouseDto(double price,LocalDateTime dealDate,double area,Boolean isNew) {
-//        this.price = price;
-//        this.dealDate = dealDate;
-//        this.area = area;
-//        this.isNew = isNew;
-//    }
-
     public HouseDto(House house) {
         this.price = house.getPrice();
         this.dealDate = house.getDealDate();
