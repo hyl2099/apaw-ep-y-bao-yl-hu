@@ -54,6 +54,12 @@ public class TransactionDto {
         }
     }
 
+    public void validateHouse() {
+        if (this. house == null || this. house.isEmpty()) {
+            throw new BadRequestException("Incomplete, lost  house");
+        }
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
