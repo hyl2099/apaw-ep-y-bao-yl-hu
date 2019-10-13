@@ -3,15 +3,14 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 import es.upm.miw.apaw_ep_themes.business_controllers.TransactionBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(TransactionResource.TRANSACTIONS)
 public class TransactionResource {
-    static final String TRANSACTIONS = "/transactionS";
+    static final String TRANSACTIONS = "/transactions";
+    static final String ID_ID = "/{id}";
+    static final String HOUSE = "/house";
     private TransactionBusinessController transactionBusinessController;
 
     @Autowired
@@ -24,4 +23,15 @@ public class TransactionResource {
         transactionDto.validate();
         return this.transactionBusinessController.create(transactionDto);
     }
+    @GetMapping(value = ID_ID + HOUSE)
+    public TransactionDto readhouse(@PathVariable String id) {
+        return this.transactionBusinessController.readHouse(id);
+    }
+
+    @PutMapping(value = ID_ID + HOUSE)
+    public void updateHouse(@PathVariable String id, @RequestBody TransactionDto transactionDto) {
+        transactionDto.validateHouse();
+        this.transactionBusinessController.updateHouse(id, transactionDto.getHouse());
+    }
+
 }
