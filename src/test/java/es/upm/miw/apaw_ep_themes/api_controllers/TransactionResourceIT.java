@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
+import es.upm.miw.apaw_ep_themes.dtos.BuyerDto;
 import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ class TransactionResourceIT {
 
     TransactionDto createTransaction(String house) {
         TransactionDto transactionDto =
-                new TransactionDto(LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),house);
+                new TransactionDto(LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52), house);
         return this.webTestClient
                 .post().uri(TransactionResource.TRANSACTIONS)
                 .body(BodyInserters.fromObject(transactionDto))
@@ -38,7 +39,7 @@ class TransactionResourceIT {
 
     @Test
     void testHouseException() {
-        TransactionDto transactionDto = new TransactionDto(null,"1");
+        TransactionDto transactionDto = new TransactionDto(null, "1");
         this.webTestClient
                 .post().uri(TransactionResource.TRANSACTIONS)
                 .body(BodyInserters.fromObject(transactionDto))
@@ -49,7 +50,7 @@ class TransactionResourceIT {
     @Test
     void testPutHouse() {
         String id = createTransaction("2").getId();
-        TransactionDto transactionDto= new TransactionDto();
+        TransactionDto transactionDto = new TransactionDto();
         transactionDto.setHouse("newHouse");
         this.webTestClient
                 .put().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.HOUSE, id)
@@ -68,7 +69,6 @@ class TransactionResourceIT {
 
     @Test
     void testPutNotFoundException() {
-
         String id = createTransaction("3").getId();
         this.webTestClient
                 .put().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.HOUSE, id)
@@ -79,7 +79,7 @@ class TransactionResourceIT {
     @Test
     void testPutHouseBadRequestException() {
         this.webTestClient
-                .put().uri( TransactionResource.TRANSACTIONS + TransactionResource.ID_ID +  TransactionResource.HOUSE, "no")
+                .put().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.HOUSE, "no")
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
@@ -88,7 +88,7 @@ class TransactionResourceIT {
     void testGetTransactionHouse() {
         String id = createTransaction("4").getId();
         TransactionDto transactionDto = this.webTestClient
-                .get().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID +TransactionResource.HOUSE, id)
+                .get().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.HOUSE, id)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(TransactionDto.class)
@@ -105,4 +105,34 @@ class TransactionResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    @Test
+    void testCreateBuyers() {
+        String id = createTransaction("5").getId();
+        this.webTestClient
+                .post().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.BUYERS, id)
+                .body(BodyInserters.fromObject(new BuyerDto("2", "123", "123")))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(TransactionDto.class)
+                .returnResult().getResponseBody();
+    }
+
+
+    @Test
+    void testCreateBuyersTransactionIdException() {
+        this.webTestClient
+                .post().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.BUYERS, "n0")
+                .body(BodyInserters.fromObject(new BuyerDto("2", "123", "123")))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testCreateBuyersException() {
+        this.webTestClient
+                .post().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.BUYERS, "n0")
+                .body(BodyInserters.fromObject(new BuyerDto()))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 }

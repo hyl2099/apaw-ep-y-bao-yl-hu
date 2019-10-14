@@ -1,17 +1,20 @@
 package es.upm.miw.apaw_ep_themes.documents;
 
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDateTime;
 
 public class Transaction {
     private String id;
     private LocalDateTime date;
     private String house;
+    private List<Buyer> buyers;
 
     public Transaction(LocalDateTime date, String house) {
         this.date = date;
         this.house = house;
+        this.buyers = new ArrayList<>();
     }
 
     public String getId() {
@@ -38,10 +41,8 @@ public class Transaction {
         this.house = house;
     }
 
-    public void validate() {
-        if (date == null || house == null) {
-            throw new BadRequestException("Incomplete Transaction. ");
-        }
+    public List<Buyer> getBuyers() {
+        return buyers;
     }
 
     @Override
