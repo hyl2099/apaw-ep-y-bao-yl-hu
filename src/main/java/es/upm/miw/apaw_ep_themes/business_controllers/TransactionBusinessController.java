@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.business_controllers;
 
 import es.upm.miw.apaw_ep_themes.daos.TransactionDao;
+import es.upm.miw.apaw_ep_themes.documents.Buyer;
 import es.upm.miw.apaw_ep_themes.documents.Transaction;
 import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
@@ -39,4 +40,9 @@ public class TransactionBusinessController {
         return this.transactionDao.findById(id).orElseThrow(() -> new NotFoundException("Transaction id: " + id));
     }
 
+    public void createBuyer(String id, String name,String address,String bankAccount ) {
+        Transaction transaction = this.findTransactionByIdAssured(id);
+        transaction.getBuyers().add(new Buyer(name,address,bankAccount));
+        this.transactionDao.save(transaction);
+    }
 }
