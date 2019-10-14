@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 import es.upm.miw.apaw_ep_themes.daos.HouseDao;
 import es.upm.miw.apaw_ep_themes.documents.House;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
+import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -33,4 +34,14 @@ public class HouseBusinessController {
         List<House> houses = this.houseDao.findAll();
         return houses.stream().map(HouseDto::new).collect(Collectors.toList());
     }
+
+    private House findHouseByIdAssured(String id) {
+        return this.houseDao.findById(id).orElseThrow(() -> new NotFoundException("Transaction id: " + id));
+    }
+
+    public void delete(String id){
+        House house = findHouseByIdAssured(id);
+        this.houseDao.delete(house);
+    }
+
 }

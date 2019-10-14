@@ -11,6 +11,7 @@ import java.util.List;
 @RequestMapping(HouseResource.HOUSES)
 public class HouseResource {
     static final String HOUSES = "/houses";
+    static final String ID_ID = "/{id}";
 
     private HouseBusinessController houseBusinessController;
 
@@ -28,5 +29,10 @@ public class HouseResource {
     @GetMapping
     public List<HouseDto> readAll() {
         return this.houseBusinessController.readAll();
+    }
+
+    @DeleteMapping(value = ID_ID)
+    public void delete(@PathVariable String id) {
+        this.houseBusinessController.delete(id);
     }
 }
