@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,4 +45,16 @@ public class HouseBusinessController {
         this.houseDao.delete(house);
     }
 
+    public List<HouseDto> findHouseByPrice(double price) {
+        List<House> houseList = this.houseDao.findByPriceGreaterThan(price);
+        HouseDto dto = null;
+        List<HouseDto> list = new ArrayList<>();
+
+        for(House house:houseList){
+            dto = new HouseDto(house);
+            list.add(dto);
+        }
+        return list;
+
+    }
 }

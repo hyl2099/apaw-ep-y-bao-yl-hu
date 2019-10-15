@@ -2,6 +2,7 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.business_controllers.HouseBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class HouseResource {
     static final String HOUSES = "/houses";
     static final String ID_ID = "/{id}";
+    public static final String SEARCH = "/search";
 
     private HouseBusinessController houseBusinessController;
 
@@ -34,5 +36,11 @@ public class HouseResource {
     @DeleteMapping(value = ID_ID)
     public void delete(@PathVariable String id) {
         this.houseBusinessController.delete(id);
+    }
+
+    @GetMapping(value = SEARCH)
+    public List<HouseDto> findHouseByPrice (@RequestParam(required = true) String price){
+
+        return this.houseBusinessController.findHouseByPrice(Double.valueOf(price));
     }
 }

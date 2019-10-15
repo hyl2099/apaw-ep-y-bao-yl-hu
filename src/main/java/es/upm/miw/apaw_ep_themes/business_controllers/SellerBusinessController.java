@@ -4,22 +4,25 @@ import es.upm.miw.apaw_ep_themes.daos.SellerDao;
 import es.upm.miw.apaw_ep_themes.documents.Seller;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
-@RequestMapping("/seller")
+@Controller
 public class SellerBusinessController {
-    @Autowired
     private SellerDao sellerDao;
 
+    @Autowired
+    public SellerBusinessController( SellerDao sellerDao) {
+        this.sellerDao = sellerDao;
+    }
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+
     public SellerDto create(SellerDto sellerDto) {
-        Seller seller = new Seller(sellerDto.getName(), sellerDto.getCredit());
+        String  name = sellerDto.getName();
+        Integer credit = sellerDto.getCredit();
+        Seller seller = new Seller(name,credit);
         this.sellerDao.save(seller);
         return new SellerDto(seller);
     }
