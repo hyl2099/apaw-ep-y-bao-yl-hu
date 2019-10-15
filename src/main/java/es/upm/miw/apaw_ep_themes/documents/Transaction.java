@@ -1,6 +1,5 @@
 package es.upm.miw.apaw_ep_themes.documents;
 
-import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -45,12 +44,17 @@ public class Transaction {
         return buyers;
     }
 
+    public void setBuyers(List<Buyer> buyers) {
+        this.buyers = buyers;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
                 "id='" + id + '\'' +
-                ", date='" + date + '\'' +
-                ", house=" + house +
+                ", date=" + date +
+                ", house='" + house + '\'' +
+                ", buyers=" + buyers +
                 '}';
     }
 }

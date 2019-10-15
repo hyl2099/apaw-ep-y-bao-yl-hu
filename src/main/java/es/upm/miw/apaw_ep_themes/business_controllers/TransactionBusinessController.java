@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TransactionBusinessController {
@@ -42,7 +44,10 @@ public class TransactionBusinessController {
 
     public void createBuyer(String id, String name,String address,String bankAccount ) {
         Transaction transaction = this.findTransactionByIdAssured(id);
-        transaction.getBuyers().add(new Buyer(name,address,bankAccount));
+        Buyer buyer = new Buyer(name, address, bankAccount);
+        List<Buyer> buyers = new ArrayList<>();
+        buyers.add(buyer);
+        transaction.setBuyers(buyers);
         this.transactionDao.save(transaction);
     }
 }

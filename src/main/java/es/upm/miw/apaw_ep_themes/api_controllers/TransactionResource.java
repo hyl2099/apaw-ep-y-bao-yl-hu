@@ -41,6 +41,4 @@ public class TransactionResource {
         buyerDto.validate();
         this.transactionBusinessController.createBuyer(id, buyerDto.getName(),buyerDto.getAddress(),buyerDto.getBankAccount());
     }
-
-
 }

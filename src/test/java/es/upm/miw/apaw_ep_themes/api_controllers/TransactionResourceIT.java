@@ -12,7 +12,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
+
 
 @ApiTestConfig
 class TransactionResourceIT {
@@ -107,14 +108,15 @@ class TransactionResourceIT {
 
     @Test
     void testCreateBuyers() {
-        String id = createTransaction("5").getId();
-        this.webTestClient
+        String id = createTransaction("6").getId();
+        TransactionDto responseBody = this.webTestClient
                 .post().uri(TransactionResource.TRANSACTIONS + TransactionResource.ID_ID + TransactionResource.BUYERS, id)
                 .body(BodyInserters.fromObject(new BuyerDto("2", "123", "123")))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(TransactionDto.class)
                 .returnResult().getResponseBody();
+        System.out.println(responseBody);
     }
 
 
