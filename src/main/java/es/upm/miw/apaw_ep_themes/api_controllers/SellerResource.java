@@ -24,6 +24,7 @@ public class SellerResource {
         sellerDto.validate();
         return this.sellerBusinessController.create(sellerDto);
     }
+
     @GetMapping
     public List<SellerDto> readAll() {
         return this.sellerBusinessController.readAll();

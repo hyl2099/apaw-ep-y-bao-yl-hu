@@ -19,6 +19,7 @@ public class HouseDto {
     }
 
     public HouseDto(House house) {
+        this.id = house.getId();
         this.price = house.getPrice();
         this.dealDate = house.getDealDate();
         this.area = house.getArea();

@@ -21,20 +21,19 @@ public class HouseResourceIT {
 
     @Test
     void testCreate() {
-        HouseDto houseDto = new HouseDto(100000.0, LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),116.0,false);
-        this.webTestClient
+        HouseDto houseDto = testCreateHouse(100000.0);
+        assertEquals(100000.0, houseDto.getPrice());
+    }
+
+    HouseDto testCreateHouse(double price) {
+        HouseDto houseDto = new HouseDto(price, LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),116.0,false);
+        return this.webTestClient
                 .post().uri(HouseResource.HOUSES)
                 .body(BodyInserters.fromObject(houseDto))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(HouseDto.class)
                 .returnResult().getResponseBody();
-        assertNotNull(houseDto);
-        System.out.print(houseDto.getId());
-        assertEquals(100000.0, houseDto.getPrice());
-        assertEquals(116.0, houseDto.getArea());
-        assertEquals(LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),houseDto.getDealDate());
-        assertFalse(houseDto.getIsNew());
     }
 
     @Test
@@ -47,6 +46,17 @@ public class HouseResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void testDeleteHouse() {
+        String id = testCreateHouse(100000.0).getId();
+        HouseDto houseDto= new HouseDto();
+        this.webTestClient
+                .post().uri(HouseResource.HOUSES)
+                .body(BodyInserters.fromObject(houseDto))
+                .exchange();
+        this.webTestClient
+                .delete().uri(HouseResource.HOUSES +  HouseResource.ID_ID , id)
+                .exchange();
 
-
+    }
 }
