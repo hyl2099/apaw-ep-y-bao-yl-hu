@@ -6,7 +6,8 @@ public class Material {
     private double price;
     private String type;
 
-    public Material(String name, double price, String type) {
+    public Material(String id, String name, double price, String type) {
+        this.id=id;
         this.name = name;
         this.price = price;
         this.type = type;
@@ -42,5 +43,14 @@ public class Material {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String toString() {
+        return "Material{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +'\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

@@ -13,12 +13,14 @@ public class MaterialDto {
     }
 
     public MaterialDto(Material material) {
+        this.id=material.getId();
         this.name = material.getName();
         this.price = material.getPrice();
         this.type = material.getType();
     }
 
-    public MaterialDto(String name, double price, String type) {
+    public MaterialDto(String id,String name, double price, String type) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.type = type;

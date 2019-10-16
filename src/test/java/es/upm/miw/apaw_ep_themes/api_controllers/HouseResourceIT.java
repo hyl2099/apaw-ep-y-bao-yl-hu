@@ -30,6 +30,7 @@ public class HouseResourceIT {
                 .expectBody(HouseDto.class)
                 .returnResult().getResponseBody();
         assertNotNull(houseDto);
+        System.out.print(houseDto.getId());
         assertEquals(100000.0, houseDto.getPrice());
         assertEquals(116.0, houseDto.getArea());
         assertEquals(LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),houseDto.getDealDate());

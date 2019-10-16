@@ -29,4 +29,5 @@ public class HouseResource {
     public List<HouseDto> readAll() {
         return this.houseBusinessController.readAll();
     }
+
 }
