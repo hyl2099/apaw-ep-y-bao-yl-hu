@@ -2,6 +2,7 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
+import es.upm.miw.apaw_ep_themes.dtos.HouseDtoList;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,5 +60,33 @@ public class HouseResourceIT {
                 .delete().uri(HouseResource.HOUSES +  HouseResource.ID_ID , id)
                 .exchange();
 
+    }
+
+    @Test
+    void testPatchHouse() {
+        HouseDto houseDto= new HouseDto(800.00, LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),100.00,true);
+        houseDto = this.webTestClient
+                .post().uri(HouseResource.HOUSES)
+                .body(BodyInserters.fromObject(houseDto))
+                .exchange().expectStatus().isOk()
+                .expectBody(HouseDto.class)
+                .returnResult().getResponseBody();
+        System.out.println("first:"+houseDto);
+        houseDto.setPrice(80.0);
+        List<HouseDto> list = new ArrayList<>();
+        list.add(houseDto);
+        HouseDtoList houseDtoList = new HouseDtoList();
+        houseDtoList.setHouseDtoList(list);
+        this.webTestClient
+                .post().uri(HouseResource.HOUSES+HouseResource.PATCH)
+                .body(BodyInserters.fromObject(houseDtoList))
+                .exchange();
+        //查询价格是否由800.00变为80.00
+       List<HouseDto> houseDto_List = this.webTestClient
+                .get().uri(HouseResource.HOUSES)
+                .exchange().expectStatus().isOk()
+                .expectBodyList(HouseDto.class)
+                .returnResult().getResponseBody();
+        System.out.println("second:"+houseDto_List.toString());
     }
 }

@@ -9,6 +9,8 @@ public class House {
     double area;
     Boolean isNew;
 
+    public House() {
+    }
     public House(double price, LocalDateTime dealDate, double area, Boolean isNew) {
         this.price = price;
         this.dealDate = dealDate;
@@ -34,6 +36,26 @@ public class House {
 
     public Boolean getISNew() {
         return isNew;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setDealDate(LocalDateTime dealDate) {
+        this.dealDate = dealDate;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
     }
 
     public String toString() {
