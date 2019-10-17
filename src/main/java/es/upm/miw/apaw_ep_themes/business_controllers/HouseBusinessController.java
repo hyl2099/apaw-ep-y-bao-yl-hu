@@ -55,6 +55,5 @@ public class HouseBusinessController {
             list.add(dto);
         }
         return list;
-
     }
 }

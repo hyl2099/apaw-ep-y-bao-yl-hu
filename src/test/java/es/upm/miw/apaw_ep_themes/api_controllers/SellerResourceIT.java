@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,18 @@ class SellerResourceIT {
     private WebTestClient webTestClient;
     @Autowired
     private SellerDao sellerDao;
+
+
+    SellerDto createSeller(String id, String name, int credit) {
+        SellerDto sellerDto = new SellerDto(id,name,credit);
+        return this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody();
+    }
 
     @Test
     void testCreate() {
@@ -75,5 +88,23 @@ class SellerResourceIT {
         assertNotNull(list.get(0).getId());
         assertNotNull(list.get(0).getName());
         assertNotNull(list.get(0).getCredit());
+    }
+
+    @Test
+    void testFindSellerByName(){
+        this.createSeller(null,"good", 1);
+        this.createSeller(null,"good", 2);
+        this.createSeller(null,"good", 3);
+
+//        List<SellerDto> sellers = this.webTestClient
+//                .get().uri(uriBuilder ->
+//                        uriBuilder.path(SellerResource.SELLERS + SellerResource.SEARCH)
+//                                .queryParam("q", "name:good")
+//                                .build())
+//                .exchange()
+//                .expectStatus().isOk()
+//                .expectBodyList(SellerDto.class)
+//                .returnResult().getResponseBody();
+//        assertFalse(sellers.isEmpty());
     }
 }

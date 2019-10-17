@@ -2,7 +2,6 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.business_controllers.HouseBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
-import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
