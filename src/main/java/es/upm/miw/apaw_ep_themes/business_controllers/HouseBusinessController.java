@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 import es.upm.miw.apaw_ep_themes.daos.HouseDao;
 import es.upm.miw.apaw_ep_themes.documents.House;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
+import es.upm.miw.apaw_ep_themes.dtos.HouseDtoList;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,5 +56,17 @@ public class HouseBusinessController {
             list.add(dto);
         }
         return list;
+    }
+
+    public void patch(HouseDtoList dtoList){
+        for(HouseDto houseDto:dtoList.getHouseDtoList()){
+           House house = new House();
+           house.setId(houseDto.getId());
+            house = this.houseDao.findById(houseDto.getId()).orElse(null);
+            house.setPrice(houseDto.getPrice());
+            House ss = houseDao.save(house);
+            System.out.println(ss);
+
+        }
     }
 }
