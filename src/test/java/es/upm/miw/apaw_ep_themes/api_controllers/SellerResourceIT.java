@@ -91,20 +91,41 @@ class SellerResourceIT {
     }
 
     @Test
-    void testFindSellerByName(){
-        this.createSeller(null,"good", 1);
-        this.createSeller(null,"good", 2);
-        this.createSeller(null,"good", 3);
-
-//        List<SellerDto> sellers = this.webTestClient
-//                .get().uri(uriBuilder ->
-//                        uriBuilder.path(SellerResource.SELLERS + SellerResource.SEARCH)
-//                                .queryParam("q", "name:good")
-//                                .build())
-//                .exchange()
-//                .expectStatus().isOk()
-//                .expectBodyList(SellerDto.class)
-//                .returnResult().getResponseBody();
-//        assertFalse(sellers.isEmpty());
+    void TestSearch(){
+        SellerDto sellerDto = new SellerDto(null,"Yuling",100);
+        SellerDto sellerDto2 = new SellerDto(null,"Yuling",130);
+        SellerDto sellerDto3 = new SellerDto(null,"Yuling",190);
+        String id1 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto2))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        String id2 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        String id3 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto3))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        List<SellerDto> sellers = this.webTestClient
+                .get().uri(uriBuilder ->
+                        uriBuilder.path(SellerResource.SELLERS + SellerResource.SEARCH)
+                                .queryParam("q","name:Yuling")
+                                .build())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(SellerDto.class)
+                .returnResult().getResponseBody();
+        System.out.print(sellers);
+        assertFalse(sellers.isEmpty());
     }
 }

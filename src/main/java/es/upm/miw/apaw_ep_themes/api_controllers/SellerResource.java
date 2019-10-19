@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 import es.upm.miw.apaw_ep_themes.business_controllers.SellerBusinessController;
 import es.upm.miw.apaw_ep_themes.documents.Seller;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -36,8 +37,11 @@ public class SellerResource {
     }
 
     @GetMapping(value = SEARCH)
-    public List<Seller> findSellerByName(@RequestParam("searchSeller") String name) {
-        return this.sellerBusinessController.findSellerByName(name);
+    public List<SellerDto> findByName(@RequestParam String q) {
+        if (!"name".equals(q.split(":")[0])) {
+            throw new BadRequestException("query param q is incorrect, missing 'name:'");
+        }
+        return this.sellerBusinessController.findByname(String.valueOf(q.split(":")[1]));
     }
 }
 
