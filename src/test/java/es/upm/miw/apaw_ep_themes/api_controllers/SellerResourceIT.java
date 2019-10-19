@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,18 @@ class SellerResourceIT {
     private WebTestClient webTestClient;
     @Autowired
     private SellerDao sellerDao;
+
+
+    SellerDto createSeller(String id, String name, int credit) {
+        SellerDto sellerDto = new SellerDto(id,name,credit);
+        return this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody();
+    }
 
     @Test
     void testCreate() {
@@ -75,5 +88,44 @@ class SellerResourceIT {
         assertNotNull(list.get(0).getId());
         assertNotNull(list.get(0).getName());
         assertNotNull(list.get(0).getCredit());
+    }
+
+    @Test
+    void TestSearch(){
+        SellerDto sellerDto = new SellerDto(null,"Yuling",100);
+        SellerDto sellerDto2 = new SellerDto(null,"Yuling",130);
+        SellerDto sellerDto3 = new SellerDto(null,"Yuling",190);
+        String id1 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto2))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        String id2 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        String id3 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto3))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        List<SellerDto> sellers = this.webTestClient
+                .get().uri(uriBuilder ->
+                        uriBuilder.path(SellerResource.SELLERS + SellerResource.SEARCH)
+                                .queryParam("q","name:Yuling")
+                                .build())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(SellerDto.class)
+                .returnResult().getResponseBody();
+        System.out.print(sellers);
+        assertFalse(sellers.isEmpty());
     }
 }

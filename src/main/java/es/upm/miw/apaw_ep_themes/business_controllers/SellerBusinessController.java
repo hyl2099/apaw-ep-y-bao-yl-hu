@@ -31,4 +31,12 @@ public class SellerBusinessController {
         List<Seller> seller = this.sellerDao.findAll();
         return seller.stream().map(SellerDto::new).collect(Collectors.toList());
     }
+
+    public List<SellerDto> findByname(String value) {
+        return this.sellerDao.findAll().stream()
+                .filter(seller -> seller.getName().equals(value))
+                .map(SellerDto::new)
+                .collect(Collectors.toList());
+    }
+
 }

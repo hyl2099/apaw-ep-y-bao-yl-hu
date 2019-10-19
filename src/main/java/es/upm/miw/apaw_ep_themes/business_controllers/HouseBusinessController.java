@@ -56,7 +56,6 @@ public class HouseBusinessController {
             list.add(dto);
         }
         return list;
-
     }
 
     public void patch(HouseDtoList dtoList){
