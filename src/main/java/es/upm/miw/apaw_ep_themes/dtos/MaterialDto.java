@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.dtos;
 
 import es.upm.miw.apaw_ep_themes.documents.Material;
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 
 public class MaterialDto {
     private String id;
@@ -56,5 +57,11 @@ public class MaterialDto {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void validate(){
+        if (name == null ) {
+            throw new BadRequestException("Incomplete materialDto. ");
+        }
     }
 }

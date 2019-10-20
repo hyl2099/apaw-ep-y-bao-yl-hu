@@ -4,14 +4,11 @@ import es.upm.miw.apaw_ep_themes.ApiTestConfig;
 import es.upm.miw.apaw_ep_themes.daos.SellerDao;
 import es.upm.miw.apaw_ep_themes.documents.Seller;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
-import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -133,7 +130,45 @@ class SellerResourceIT {
 
 
     @Test
-    void testUserUpdate() {
+    void TestSearchException(){
+        SellerDto sellerDto = new SellerDto(null,"Melisa",100);
+        SellerDto sellerDto2 = new SellerDto(null,"Melisa",130);
+        SellerDto sellerDto3 = new SellerDto(null,"Melisa",190);
+        String id1 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto2))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        String id2 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        String id3 = this.webTestClient
+                .post().uri(SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto3))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody().getId();
+        List<SellerDto> sellers = this.webTestClient
+                .get().uri(uriBuilder ->
+                        uriBuilder.path(SellerResource.SELLERS + SellerResource.SEARCH)
+                                .queryParam("q","name:Yulin")
+                                .build())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(SellerDto.class)
+                .returnResult().getResponseBody();
+        assertTrue(sellers.isEmpty());
+    }
+
+    @Test
+    void testSellerUpdate() {
         String id = this.createSeller("001","Yuling",100).getId();
         SellerDto newSeller = new SellerDto();
         newSeller.setName("Melisa");

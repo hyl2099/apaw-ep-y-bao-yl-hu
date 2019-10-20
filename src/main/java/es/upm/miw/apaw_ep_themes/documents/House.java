@@ -46,18 +46,6 @@ public class House {
         this.price = price;
     }
 
-    public void setDealDate(LocalDateTime dealDate) {
-        this.dealDate = dealDate;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
-    }
-
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
-    }
-
     public String toString() {
         return "House{" +
                 "id='" + id + '\'' +

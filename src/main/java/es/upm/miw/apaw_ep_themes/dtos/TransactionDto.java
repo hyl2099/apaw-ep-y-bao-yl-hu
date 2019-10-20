@@ -55,7 +55,7 @@ public class TransactionDto {
     }
 
     public void validateHouse() {
-        if (this. house == null || this. house.isEmpty()) {
+        if (this. house == null || this.house.isEmpty()) {
             throw new BadRequestException("Incomplete, lost  house");
         }
     }

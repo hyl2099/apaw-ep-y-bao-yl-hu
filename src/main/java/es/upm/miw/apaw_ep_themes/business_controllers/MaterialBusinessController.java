@@ -4,7 +4,6 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 import es.upm.miw.apaw_ep_themes.daos.MaterialDao;
 import es.upm.miw.apaw_ep_themes.documents.Material;
 import es.upm.miw.apaw_ep_themes.dtos.MaterialDto;
-import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

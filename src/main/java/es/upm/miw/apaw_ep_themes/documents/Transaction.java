@@ -20,28 +20,20 @@ public class Transaction {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public LocalDateTime getDate() {
         return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
     }
 
     public String getHouse() {
         return house;
     }
 
-    public void setHouse(String house) {
-        this.house = house;
-    }
-
     public List<Buyer> getBuyers() {
         return buyers;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
     }
 
     public void setBuyers(List<Buyer> buyers) {

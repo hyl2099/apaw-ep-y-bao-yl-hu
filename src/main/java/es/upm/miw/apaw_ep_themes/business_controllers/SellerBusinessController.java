@@ -2,15 +2,10 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 
 import es.upm.miw.apaw_ep_themes.daos.SellerDao;
 import es.upm.miw.apaw_ep_themes.documents.Seller;
-import es.upm.miw.apaw_ep_themes.documents.Transaction;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
-import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,10 +13,6 @@ import java.util.stream.Collectors;
 @Controller
 public class SellerBusinessController {
     private SellerDao sellerDao;
-    static final String ID_ID = "/{id}";
-    static final String NAME = "/name";
-
-    private SellerBusinessController sellerBusinessController;
 
     @Autowired
     public SellerBusinessController( SellerDao sellerDao) {

@@ -30,16 +30,8 @@ public class Seller {
         return credit;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setCredit(Integer credit) {
-        this.credit = credit;
     }
 
     @Override
