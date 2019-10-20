@@ -16,22 +16,6 @@ public class Buyer {
         this.bankAccount = bankAccount;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getBankAccount() {
-        return bankAccount;
-    }
-
 
     @Override
     public String toString() {

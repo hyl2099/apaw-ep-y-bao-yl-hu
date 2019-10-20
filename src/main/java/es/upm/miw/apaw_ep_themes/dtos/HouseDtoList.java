@@ -3,13 +3,13 @@ package es.upm.miw.apaw_ep_themes.dtos;
 import java.util.List;
 
 public class HouseDtoList {
-    private List<HouseDto> houseDtoList;
+    private List<HouseDto> houseList;
 
-    public List<HouseDto> getHouseDtoList() {
-        return houseDtoList;
+    public List<HouseDto> getHouseList() {
+        return houseList;
     }
 
-    public void setHouseDtoList(List<HouseDto> houseDtoList) {
-        this.houseDtoList = houseDtoList;
+    public void setHouseList(List<HouseDto> houseList) {
+        this.houseList = houseList;
     }
 }

@@ -58,12 +58,15 @@ public class HouseBusinessController {
         return list;
     }
 
-    public void patch(HouseDtoList dtoList){
-        for(HouseDto houseDto:dtoList.getHouseDtoList()){
+    public void update(HouseDtoList dtoList){
+        for(HouseDto houseDto:dtoList.getHouseList()){
            House house = new House();
            house.setId(houseDto.getId());
             house = this.houseDao.findById(houseDto.getId()).orElse(null);
-            house.setPrice(houseDto.getPrice());
+            if (house!=null){
+                house.setPrice(houseDto.getPrice());
+            }
+
             House ss = houseDao.save(house);
             System.out.println(ss);
 
