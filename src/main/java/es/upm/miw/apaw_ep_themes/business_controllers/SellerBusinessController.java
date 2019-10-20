@@ -27,6 +27,9 @@ public class SellerBusinessController {
         this.sellerDao.save(seller);
         return new SellerDto(seller);
     }
+    public SellerDto read(String id) {
+        return new SellerDto(this.findSellerById(id));
+    }
 
     public List<SellerDto> readAll() {
         List<Seller> seller = this.sellerDao.findAll();
@@ -51,7 +54,6 @@ public class SellerBusinessController {
     }
 
     private Seller findSellerById(String id) {
-        System.out.print(this.sellerDao.findById(id));
         return this.sellerDao.findById(id).orElseThrow(() -> new NotFoundException("Seller id: " + id));
     }
 

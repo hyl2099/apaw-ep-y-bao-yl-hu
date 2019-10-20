@@ -68,12 +68,39 @@ class SellerResourceIT {
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
+
     @Test
-    void ReadAll() {
-        SellerDto suggestionDto = new  SellerDto("baoying", 2);
+    void testReadID() {
+        SellerDto sellerDto = new  SellerDto("baoying", 2);
         this.webTestClient
                 .post().uri( SellerResource.SELLERS)
-                .body(BodyInserters.fromObject(suggestionDto))
+                .body(BodyInserters.fromObject(sellerDto))
+                .exchange()
+                .expectStatus().isOk();
+        String id = sellerDto.getId();
+        this.webTestClient
+                .get().uri( SellerResource.SELLERS+ SellerResource.ID_ID,id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList( SellerDto.class)
+                .returnResult().getResponseBody();
+        assertEquals("baoying", sellerDto.getName());
+    }
+
+    @Test
+    void testReadIDException() {
+        this.webTestClient
+                .get().uri(SellerResource.SELLERS+ SellerResource.ID_ID, "no")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void ReadAll() {
+        SellerDto sellerDto = new  SellerDto("baoying", 2);
+        this.webTestClient
+                .post().uri( SellerResource.SELLERS)
+                .body(BodyInserters.fromObject(sellerDto))
                 .exchange()
                 .expectStatus().isOk();
         List< SellerDto> list =

@@ -58,8 +58,17 @@ public class HouseResourceIT {
                 .exchange();
         this.webTestClient
                 .delete().uri(HouseResource.HOUSES +  HouseResource.ID_ID , id)
-                .exchange();
+                .exchange()
+                .expectStatus().isOk();
+    }
 
+    @Test
+    void deleteException() {
+        String id = null;
+        this.webTestClient
+                .delete().uri(HouseResource.HOUSES +  HouseResource.ID_ID , id)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
@@ -76,12 +85,11 @@ public class HouseResourceIT {
         List<HouseDto> list = new ArrayList<>();
         list.add(houseDto);
         HouseDtoList houseDtoList = new HouseDtoList();
-        houseDtoList.setHouseDtoList(list);
+        houseDtoList.setHouseList(list);
         this.webTestClient
-                .post().uri(HouseResource.HOUSES+HouseResource.PATCH)
+                .patch().uri(HouseResource.HOUSES+HouseResource.PATCH)
                 .body(BodyInserters.fromObject(houseDtoList))
                 .exchange();
-        //查询价格是否由800.00变为80.00
        List<HouseDto> houseDto_List = this.webTestClient
                 .get().uri(HouseResource.HOUSES)
                 .exchange().expectStatus().isOk()

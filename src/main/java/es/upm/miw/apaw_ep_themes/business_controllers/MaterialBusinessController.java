@@ -41,7 +41,6 @@ public class MaterialBusinessController {
         Material material = findMaterialById(id);
         material.setPrice(materialDto.getPrice());
         Material ss = materialDao.save(material);
-        System.out.println(ss);
     }
 
     private Material findMaterialById(String id) {

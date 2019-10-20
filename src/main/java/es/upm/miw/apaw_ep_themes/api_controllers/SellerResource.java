@@ -30,6 +30,11 @@ public class SellerResource {
         return this.sellerBusinessController.create(sellerDto);
     }
 
+    @GetMapping(value = ID_ID)
+    public SellerDto read(@PathVariable String id) {
+        return this.sellerBusinessController.read(id);
+    }
+
     @GetMapping
     public List<SellerDto> readAll() {
         return this.sellerBusinessController.readAll();

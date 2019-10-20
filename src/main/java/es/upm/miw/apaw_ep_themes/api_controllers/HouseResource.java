@@ -43,9 +43,9 @@ public class HouseResource {
     public List<HouseDto> findHouseByPrice (@RequestParam(required = true) String price){
             return this.houseBusinessController.findHouseByPrice(Double.valueOf(price));
     }
-
     @PatchMapping(value=PATCH)
-    public void patch(@RequestBody HouseDtoList dtoList){
-        this.houseBusinessController.patch(dtoList);
+    public void update(@RequestBody HouseDtoList dtoList){
+        this.houseBusinessController.update(dtoList);
     }
+
 }
