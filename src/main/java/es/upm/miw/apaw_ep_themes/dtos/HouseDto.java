@@ -13,7 +13,6 @@ public class HouseDto {
     private double area;
     private Boolean isNew;
 
-
     public HouseDto() {
         // empty for framework
     }

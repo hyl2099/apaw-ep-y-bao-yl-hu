@@ -50,10 +50,7 @@ public class SellerResource {
 
     @PutMapping(value = ID_ID + NAME)
     public void updateName(@PathVariable String id, @RequestBody SellerDto sellerDto) {
-        System.out.print(sellerDto);
         this.sellerBusinessController.updateName(id, sellerDto.getName());
     }
-
-
 }
 
