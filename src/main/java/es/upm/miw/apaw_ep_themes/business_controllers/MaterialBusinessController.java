@@ -4,6 +4,7 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 import es.upm.miw.apaw_ep_themes.daos.MaterialDao;
 import es.upm.miw.apaw_ep_themes.documents.Material;
 import es.upm.miw.apaw_ep_themes.dtos.MaterialDto;
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,18 @@ public class MaterialBusinessController {
     public void delete(String id){
         Material material = findHouseByIdAssured(id);
         this.materialDao.delete(material);
+    }
+
+    public void patch(String id, MaterialDto  materialDto) {
+
+        Material material = findMaterialById(id);
+        material.setPrice(materialDto.getPrice());
+        Material ss = materialDao.save(material);
+        System.out.println(ss);
+    }
+
+    private Material findMaterialById(String id) {
+        return this.materialDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id));
     }
 
 }
