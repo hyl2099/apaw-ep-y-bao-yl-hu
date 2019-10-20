@@ -55,5 +55,23 @@ class MaterialResourceIT {
                 .expectStatus().isOk();
     }
 
+    @Test
+    void testPatchMaterial() {
+        MaterialDto materialDto = new MaterialDto("001","floor",120,"wooden");
+        this.webTestClient
+                .post().uri(MaterialResource.MATERIALS)
+                .body(BodyInserters.fromObject(materialDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(MaterialDto.class)
+                .returnResult().getResponseBody();
 
+        MaterialDto newMaterialdto = new MaterialDto();
+        newMaterialdto.setName("Brick");
+        this.webTestClient
+                .patch().uri(MaterialResource.MATERIALS + MaterialResource.ID_ID, materialDto.getId())
+                .body(BodyInserters.fromObject(newMaterialdto))
+                .exchange()
+                .expectStatus().isOk();
+    }
 }

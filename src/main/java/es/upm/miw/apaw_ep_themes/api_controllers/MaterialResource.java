@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class MaterialResource {
     static final String MATERIALS = "/materials";
     static final String ID_ID = "/{id}";
+    static final String NAME = "{name}";
 
     private MaterialBusinessController materialBusinessController;
 
@@ -24,9 +25,16 @@ public class MaterialResource {
         return this.materialBusinessController.create(materialDto);
     }
 
-
     @DeleteMapping(value = ID_ID)
     public void delete(@PathVariable String id) {
         this.materialBusinessController.delete(id);
     }
+
+    @PatchMapping(value = ID_ID)
+    public void patch(@PathVariable String id, @RequestBody MaterialDto materialDto) {
+        //materialDto.validate();
+        this.materialBusinessController.patch(id, materialDto);
+    }
+
+
 }
