@@ -4,6 +4,7 @@ import es.upm.miw.apaw_ep_themes.ApiTestConfig;
 import es.upm.miw.apaw_ep_themes.daos.SellerDao;
 import es.upm.miw.apaw_ep_themes.documents.Seller;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
+import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ApiTestConfig
@@ -127,5 +129,36 @@ class SellerResourceIT {
                 .returnResult().getResponseBody();
         System.out.print(sellers);
         assertFalse(sellers.isEmpty());
+    }
+
+
+    @Test
+    void testUserUpdate() {
+        String id = this.createSeller("001","Yuling",100).getId();
+        SellerDto newSeller = new SellerDto();
+        newSeller.setName("Melisa");
+        this.webTestClient
+                .put().uri(SellerResource.SELLERS + SellerResource.ID_ID +SellerResource.NAME, id)
+                .body(BodyInserters.fromObject(newSeller))
+                .exchange()
+                .expectStatus().isOk();
+        newSeller = this.webTestClient
+                .get().uri(SellerResource.SELLERS + SellerResource.ID_ID+SellerResource.NAME, id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SellerDto.class)
+                .returnResult().getResponseBody();
+        System.out.print(newSeller);
+        assertEquals(id, newSeller.getId());
+        assertEquals("Melisa", newSeller.getName());
+    }
+
+    @Test
+    void testPutNameNotFoundException() {
+        String id = this.createSeller("001","Yuling",100).getId();
+        this.webTestClient
+                .put().uri(SellerResource.SELLERS + SellerResource.ID_ID + SellerResource.NAME, id)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }
