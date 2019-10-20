@@ -18,12 +18,6 @@ public class MaterialResource {
         this.materialBusinessController = materialBusinessController;
     }
 
-//    @RequestMapping(value="/restDelete",method= RequestMethod.DELETE)
-//    public String Delete(@RequestParam(value = "id") Integer id) {
-//        System.out.println("DELETE ID:" + id);
-//        return SUCCESS;
-//    }
-
     @PostMapping
     public MaterialDto create(@RequestBody MaterialDto materialDto) {
         //materialDto.validate();
