@@ -7,6 +7,7 @@ import es.upm.miw.apaw_ep_themes.dtos.TransactionDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.EmitterProcessor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,21 +16,29 @@ import java.util.List;
 @Controller
 public class TransactionBusinessController {
     private TransactionDao transactionDao;
+    private EmitterProcessor<String> emitterProcessorTransaction;
 
     @Autowired
     public TransactionBusinessController(TransactionDao transactionDao) {
         this.transactionDao = transactionDao;
+        this.emitterProcessorTransaction = EmitterProcessor.create();
     }
 
     public TransactionDto create(TransactionDto transactionDto) {
         LocalDateTime date = transactionDto.getDate();
         String house = transactionDto.getHouse();
-        Transaction transaction = new Transaction(date,house);
+        Transaction transaction = new Transaction(date, house);
         this.transactionDao.save(transaction);
+        this.emitterProcessorTransaction.onNext("New transaction is added");
         return new TransactionDto(transaction);
     }
-    public  TransactionDto readHouse(String id) {
-        return new  TransactionDto(this.findTransactionByIdAssured(id));
+
+    public EmitterProcessor<String> publisher() {
+        return this.emitterProcessorTransaction;
+    }
+
+    public TransactionDto readHouse(String id) {
+        return new TransactionDto(this.findTransactionByIdAssured(id));
     }
 
     public void updateHouse(String id, String house) {
@@ -42,7 +51,7 @@ public class TransactionBusinessController {
         return this.transactionDao.findById(id).orElseThrow(() -> new NotFoundException("Transaction id: " + id));
     }
 
-    public void createBuyer(String id, String name,String address,String bankAccount ) {
+    public void createBuyer(String id, String name, String address, String bankAccount) {
         Transaction transaction = this.findTransactionByIdAssured(id);
         Buyer buyer = new Buyer(name, address, bankAccount);
         List<Buyer> buyers = new ArrayList<>();
