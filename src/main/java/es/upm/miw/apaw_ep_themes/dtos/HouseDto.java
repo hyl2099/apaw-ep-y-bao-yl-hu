@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.dtos;
 
 import es.upm.miw.apaw_ep_themes.documents.House;
+import es.upm.miw.apaw_ep_themes.documents.TreeHouseComposite;
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 
 import java.time.LocalDateTime;

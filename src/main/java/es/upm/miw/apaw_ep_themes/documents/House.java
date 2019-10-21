@@ -1,13 +1,17 @@
 package es.upm.miw.apaw_ep_themes.documents;
 
-import java.time.LocalDateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+@Document
 public class House {
+    @Id
     private String id;
-    double price;
-    LocalDateTime dealDate;
-    double area;
-    Boolean isNew;
+    private double price;
+    private LocalDateTime dealDate;
+    private double area;
+    private Boolean isNew;
 
     public House() {
     }
@@ -48,7 +52,7 @@ public class House {
 
     public String toString() {
         return "House{" +
-                "id='" + id + '\'' +
+
                 ", price=" + price +
                 ", dealDate='" + dealDate + '\'' +
                 ", area='" + area + '\'' +
