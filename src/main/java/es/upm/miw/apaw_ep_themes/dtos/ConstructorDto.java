@@ -20,7 +20,7 @@ public class ConstructorDto {
 
     }
 
-    public ConstructorDto(String name) {
+    public ConstructorDto(String s, String odg, double v, String reform, String name, House house) {
         this.name = name;
     }
 
