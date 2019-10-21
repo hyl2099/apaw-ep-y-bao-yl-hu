@@ -27,7 +27,7 @@ public class HouseBusinessController {
         LocalDateTime dealDate = houseDto.getDealDate();
         double area = houseDto.getArea();
         Boolean isNew = houseDto.getIsNew();
-        House house = new House(price,dealDate,area,isNew);
+        House house = new House(price, dealDate, area, isNew);
         this.houseDao.save(house);
         return new HouseDto(house);
     }
@@ -41,7 +41,7 @@ public class HouseBusinessController {
         return this.houseDao.findById(id).orElseThrow(() -> new NotFoundException("Transaction id: " + id));
     }
 
-    public void delete(String id){
+    public void delete(String id) {
         House house = findHouseByIdAssured(id);
         this.houseDao.delete(house);
     }
@@ -51,25 +51,22 @@ public class HouseBusinessController {
         HouseDto dto = null;
         List<HouseDto> list = new ArrayList<>();
 
-        for(House house:houseList){
+        for (House house : houseList) {
             dto = new HouseDto(house);
             list.add(dto);
         }
         return list;
     }
 
-    public void update(HouseDtoList dtoList){
-        for(HouseDto houseDto:dtoList.getHouseList()){
-           House house = new House();
-           house.setId(houseDto.getId());
+    public void update(HouseDtoList dtoList) {
+        for (HouseDto houseDto : dtoList.getHouseList()) {
+            House house = new House();
+            house.setId(houseDto.getId());
             house = this.houseDao.findById(houseDto.getId()).orElse(null);
-            if (house!=null){
+            if (house != null) {
                 house.setPrice(houseDto.getPrice());
             }
-
-            House ss = houseDao.save(house);
-            System.out.println(ss);
-
+            houseDao.save(house);
         }
     }
 }
