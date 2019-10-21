@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
 import es.upm.miw.apaw_ep_themes.daos.SellerDao;
 import es.upm.miw.apaw_ep_themes.documents.Seller;
+import es.upm.miw.apaw_ep_themes.documents.SellerBuilder;
 import es.upm.miw.apaw_ep_themes.dtos.SellerDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,15 @@ class SellerResourceIT {
         assertNotNull(sellerDao.save(seller));
         System.out.println("save success!");
 
+    }
+    @Test
+    public void builder(){
+        Seller seller = new SellerBuilder().setName("123").setCredit(123).build();
+        sellerDao.save(seller);
+        assertNotNull(sellerDao.save(seller));
+        assertNotNull(seller.getId());
+        assertEquals("123", seller.getName());
+        System.out.println("save success!");
     }
 
     @Test
