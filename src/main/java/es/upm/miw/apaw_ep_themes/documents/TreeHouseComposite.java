@@ -53,11 +53,11 @@ public class TreeHouseComposite implements TreeHouse{
 
     @Override
     public void add(TreeHouse treeHouse) {
-
+        this.treeHouseList.add(treeHouse);
     }
 
     @Override
     public void remove(TreeHouse treeHouse) {
-
+        this.treeHouseList.remove(treeHouse);
     }
 }

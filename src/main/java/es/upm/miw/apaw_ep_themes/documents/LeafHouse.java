@@ -1,5 +1,6 @@
 package es.upm.miw.apaw_ep_themes.documents;
 
+
 import java.time.LocalDateTime;
 
 public class LeafHouse implements TreeHouse{
@@ -41,11 +42,11 @@ public class LeafHouse implements TreeHouse{
 
     @Override
     public void add(TreeHouse treeHouse) {
-
+        // Do nothing because is leaf
     }
 
     @Override
     public void remove(TreeHouse treeHouse) {
-
+        // Do nothing because is leaf
     }
 }

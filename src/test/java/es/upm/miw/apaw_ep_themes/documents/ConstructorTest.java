@@ -12,7 +12,6 @@ class ConstructorTest {
     @Test
     void testToString() {
         constructor.toString();
-        System.out.print(constructor.toString());
         assertEquals("Constructor{id='001', name='ODG', price=100.0, business='reform', worker='Yuling', house=House{, price=100.0, dealDate='2017-01-04T17:23:52', area='116.0', isNew='false'}}", constructor.toString());
     }
 }

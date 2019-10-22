@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
+import es.upm.miw.apaw_ep_themes.business_controllers.HouseBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDto;
 import es.upm.miw.apaw_ep_themes.dtos.HouseDtoList;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
+import reactor.test.StepVerifier;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -20,6 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HouseResourceIT {
     @Autowired
     private WebTestClient webTestClient;
+    @Autowired
+    private HouseBusinessController houseBusinessController;
 
     @Test
     void testCreate() {
@@ -96,5 +100,16 @@ public class HouseResourceIT {
                 .expectBodyList(HouseDto.class)
                 .returnResult().getResponseBody();
         System.out.println("second:"+houseDto_List.toString());
+    }
+
+    @Test
+    void testPublisher(){
+        HouseDto houseDto = new HouseDto(100,LocalDateTime.of(2017, Month.JANUARY, 4, 17, 23, 52),100.00,true);
+        StepVerifier
+                .create(houseBusinessController.publisher())
+                .then(()-> houseBusinessController.create(houseDto))
+                .expectNext("New house is added")
+                .thenCancel()
+                .verify();
     }
 }
