@@ -7,6 +7,7 @@ import es.upm.miw.apaw_ep_themes.dtos.HouseDtoList;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.EmitterProcessor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,10 +17,12 @@ import java.util.stream.Collectors;
 @Controller
 public class HouseBusinessController {
     private HouseDao houseDao;
+    private EmitterProcessor<String> emitter;
 
     @Autowired
     public HouseBusinessController(HouseDao houseDao) {
         this.houseDao = houseDao;
+        this.emitter = EmitterProcessor.create();
     }
 
     public HouseDto create(HouseDto houseDto) {
@@ -29,6 +32,7 @@ public class HouseBusinessController {
         Boolean isNew = houseDto.getIsNew();
         House house = new House(price, dealDate, area, isNew);
         this.houseDao.save(house);
+        this.emitter.onNext("New house is added");
         return new HouseDto(house);
     }
 
@@ -68,5 +72,9 @@ public class HouseBusinessController {
             }
             houseDao.save(house);
         }
+    }
+
+    public EmitterProcessor<String> publisher() {
+        return this.emitter;
     }
 }
