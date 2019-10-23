@@ -32,7 +32,7 @@ public class LeafHouse implements TreeHouse{
 
     @Override
     public Boolean isNew() {
-        return null;
+        return false;
     }
 
     @Override
