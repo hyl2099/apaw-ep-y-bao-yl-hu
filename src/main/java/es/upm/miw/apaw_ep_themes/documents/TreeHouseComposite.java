@@ -43,7 +43,7 @@ public class TreeHouseComposite implements TreeHouse{
 
     @Override
     public Boolean isNew() {
-        return null;
+        return false;
     }
 
     @Override

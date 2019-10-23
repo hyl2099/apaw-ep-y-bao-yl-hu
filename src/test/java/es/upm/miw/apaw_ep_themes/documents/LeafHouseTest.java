@@ -30,7 +30,7 @@ class LeafHouseTest {
 
     @Test
     void isNew() {
-        assertEquals(null,leaf.isNew());
+        assertEquals(false,leaf.isNew());
     }
 
     @Test
