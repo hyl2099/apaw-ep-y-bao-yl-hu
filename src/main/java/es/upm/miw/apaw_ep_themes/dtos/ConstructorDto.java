@@ -20,10 +20,6 @@ public class ConstructorDto {
 
     }
 
-    public ConstructorDto(String name) {
-        this.name = name;
-    }
-
     public ConstructorDto(String name, Double price, String business, String worker, House house) {
         this.name = name;
         this.price = price;

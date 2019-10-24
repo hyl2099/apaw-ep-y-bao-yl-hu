@@ -26,4 +26,8 @@ public class Buyer {
                 ", bankAccount='" + bankAccount + '\'' +
                 '}';
     }
+
+    public String getId() {
+        return this.id;
+    }
 }
