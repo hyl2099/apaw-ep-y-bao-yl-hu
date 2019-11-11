@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MaterialBusinessController {
     private MaterialDao materialDao;
-
+    
+    //Springboot注解(annotations)
+    //@Autowired自动导入。
     @Autowired
     public MaterialBusinessController(MaterialDao materialDao) {
         this.materialDao = materialDao;
